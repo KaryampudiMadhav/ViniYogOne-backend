@@ -10,7 +10,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false
       },
-      userId: {
+      "userId": {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
@@ -20,11 +20,11 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      achievementType: {
+      "achievementType": {
         type: Sequelize.STRING(50),
         allowNull: false
       },
-      achievementName: {
+      "achievementName": {
         type: Sequelize.STRING(100),
         allowNull: false
       },
@@ -32,21 +32,21 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      badgeIcon: {
+      "badgeIcon": {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      xpReward: {
+      "xpReward": {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false
       },
-      unlockedAt: {
+      "unlockedAt": {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
       },
-      createdAt: {
+      "createdAt": {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')

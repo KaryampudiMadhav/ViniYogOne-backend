@@ -66,25 +66,26 @@ router.post(
 // Get OAuth providers status
 router.get('/oauth-status', authController.getOAuthStatus);
 
+// OAuth routes - TEMPORARILY DISABLED
 // Google OAuth routes
-router.get('/google', authController.googleAuth);
-router.get('/google/callback', authController.googleCallback);
+// router.get('/google', authController.googleAuth);
+// router.get('/google/callback', authController.googleCallback);
 
 // Facebook OAuth routes
-router.get('/facebook', authController.facebookAuth);
-router.get('/facebook/callback', authController.facebookCallback);
+// router.get('/facebook', authController.facebookAuth);
+// router.get('/facebook/callback', authController.facebookCallback);
 
 // LinkedIn OAuth routes
-router.get('/linkedin', authController.linkedinAuth);
-router.get('/linkedin/callback', authController.linkedinCallback);
+// router.get('/linkedin', authController.linkedinAuth);
+// router.get('/linkedin/callback', authController.linkedinCallback);
 
 // Twitter OAuth routes
-router.get('/twitter', authController.twitterAuth);
-router.get('/twitter/callback', authController.twitterCallback);
+// router.get('/twitter', authController.twitterAuth);
+// router.get('/twitter/callback', authController.twitterCallback);
 
 // Instagram OAuth routes
-router.get('/instagram', authController.instagramAuth);
-router.get('/instagram/callback', authController.instagramCallback);
+// router.get('/instagram', authController.instagramAuth);
+// router.get('/instagram/callback', authController.instagramCallback);
 
 // Protected routes
 router.post(

@@ -10,11 +10,11 @@ module.exports = {
         primaryKey: true,
         allowNull: false
       },
-      firstName: {
+      "firstName": {
         type: Sequelize.STRING(100),
         allowNull: false
       },
-      lastName: {
+      "lastName": {
         type: Sequelize.STRING(100),
         allowNull: false
       },
@@ -27,73 +27,73 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: true
       },
-      phoneNumber: {
+      "phoneNumber": {
         type: Sequelize.STRING(15),
         allowNull: true,
         unique: true
       },
-      isEmailVerified: {
+      "isEmailVerified": {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false
       },
-      isPhoneVerified: {
+      "isPhoneVerified": {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false
       },
-      googleId: {
+      "googleId": {
         type: Sequelize.STRING(255),
         allowNull: true,
         unique: true
       },
-      facebookId: {
+      "facebookId": {
         type: Sequelize.STRING(255),
         allowNull: true,
         unique: true
       },
-      linkedinId: {
+      "linkedinId": {
         type: Sequelize.STRING(255),
         allowNull: true,
         unique: true
       },
-      twitterId: {
+      "twitterId": {
         type: Sequelize.STRING(255),
         allowNull: true,
         unique: true
       },
-      profilePicture: {
+      "profilePicture": {
         type: Sequelize.TEXT,
         allowNull: true
       },
-      dateOfBirth: {
+      "dateOfBirth": {
         type: Sequelize.DATE,
         allowNull: true
       },
-      kycStatus: {
+      "kycStatus": {
         type: Sequelize.ENUM('pending', 'submitted', 'verified', 'rejected'),
         defaultValue: 'pending',
         allowNull: false
       },
-      riskProfile: {
+      "riskProfile": {
         type: Sequelize.ENUM('conservative', 'moderate', 'aggressive'),
         allowNull: true
       },
-      currentStreak: {
+      "currentStreak": {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false
       },
-      longestStreak: {
+      "longestStreak": {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false
       },
-      lastLoginDate: {
+      "lastLoginDate": {
         type: Sequelize.DATE,
         allowNull: true
       },
-      totalXP: {
+      "totalXP": {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false
@@ -103,22 +103,22 @@ module.exports = {
         defaultValue: 1,
         allowNull: false
       },
-      streakFreezeCount: {
+      "streakFreezeCount": {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false
       },
-      isActive: {
+      "isActive": {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
         allowNull: false
       },
-      createdAt: {
+      "createdAt": {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      updatedAt: {
+      "updatedAt": {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')

@@ -10,7 +10,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false
       },
-      userId: {
+      "userId": {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
@@ -24,20 +24,20 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
-      streakCount: {
+      "streakCount": {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      xpEarned: {
+      "xpEarned": {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false
       },
-      actionType: {
+      "actionType": {
         type: Sequelize.ENUM('login', 'investment', 'learning', 'quiz', 'challenge'),
         allowNull: false
       },
-      createdAt: {
+      "createdAt": {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')

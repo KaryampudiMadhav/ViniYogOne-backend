@@ -22,16 +22,16 @@ module.exports = {
         type: Sequelize.ENUM('signup', 'login', 'reset-password'),
         allowNull: false
       },
-      expiresAt: {
+      "expiresAt": {
         type: Sequelize.DATE,
         allowNull: false
       },
-      isUsed: {
+      "isUsed": {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false
       },
-      createdAt: {
+      "createdAt": {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')

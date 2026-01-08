@@ -20,8 +20,8 @@ module.exports = {
     // Update existing users to have default credits and badges
     await queryInterface.sequelize.query(`
       UPDATE users 
-      SET credits = 100, badgesCount = 0 
-      WHERE credits IS NULL OR badgesCount IS NULL;
+      SET credits = 100, "badgesCount" = 0 
+      WHERE credits IS NULL OR "badgesCount" IS NULL;
     `);
   },
 
