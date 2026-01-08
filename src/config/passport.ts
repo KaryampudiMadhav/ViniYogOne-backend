@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { User } from '../models/User';
-import { logger } from '../utils/logger';
+// import { logger } from '../utils/logger'; // OAuth disabled
 
 // Track which OAuth providers are enabled
 export const oauthStatus = {
