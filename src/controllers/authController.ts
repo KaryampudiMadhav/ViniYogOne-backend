@@ -93,6 +93,41 @@ export class AuthController {
     try {
       const { email, purpose = 'signup' } = req.body;
 
+      // For signup, check if user already exists
+      if (purpose === 'signup') {
+        const existingUser = await User.findOne({ where: { email } });
+        if (existingUser) {
+          return res.status(400).json({
+            success: false,
+            message: 'User with this email already exists. Please login instead.'
+          });
+        }
+      }
+
+      // Check if OTP was recently sent (prevent spam)
+      const recentOTP = await OTP.findOne({
+        where: {
+          email,
+          purpose,
+          isUsed: false
+        },
+        order: [['createdAt', 'DESC']]
+      });
+
+      if (recentOTP) {
+        const timeSinceLastOTP = Date.now() - new Date(recentOTP.createdAt).getTime();
+        const cooldownPeriod = 60 * 1000; // 1 minute cooldown
+        
+        if (timeSinceLastOTP < cooldownPeriod && new Date() < recentOTP.expiresAt) {
+          const remainingSeconds = Math.ceil((cooldownPeriod - timeSinceLastOTP) / 1000);
+          return res.status(429).json({
+            success: false,
+            message: `Please wait ${remainingSeconds} seconds before requesting a new OTP`,
+            remainingSeconds
+          });
+        }
+      }
+
       // Generate OTP
       const otpCode = generateOTP();
       const expiresAt = new Date();
@@ -334,6 +369,30 @@ export class AuthController {
           success: true,
           message: 'If the email exists, a password reset OTP has been sent'
         });
+      }
+
+      // Check if OTP was recently sent (prevent spam)
+      const recentOTP = await OTP.findOne({
+        where: {
+          email,
+          purpose: 'reset-password',
+          isUsed: false
+        },
+        order: [['createdAt', 'DESC']]
+      });
+
+      if (recentOTP) {
+        const timeSinceLastOTP = Date.now() - new Date(recentOTP.createdAt).getTime();
+        const cooldownPeriod = 60 * 1000; // 1 minute cooldown
+        
+        if (timeSinceLastOTP < cooldownPeriod && new Date() < recentOTP.expiresAt) {
+          const remainingSeconds = Math.ceil((cooldownPeriod - timeSinceLastOTP) / 1000);
+          return res.status(429).json({
+            success: false,
+            message: `Please wait ${remainingSeconds} seconds before requesting a new OTP`,
+            remainingSeconds
+          });
+        }
       }
 
       // Generate and send OTP
