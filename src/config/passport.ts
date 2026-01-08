@@ -11,6 +11,12 @@ export const oauthStatus = {
   instagram: false
 };
 
+// ====================================
+// ALL OAUTH STRATEGIES DISABLED
+// Uncomment when ready to enable
+// ====================================
+
+/* 
 // Google OAuth Strategy
 const enableGoogleOAuth =
   !!process.env.GOOGLE_CLIENT_ID &&
@@ -330,6 +336,7 @@ if (enableInstagramOAuth) {
 } else {
   logger.warn('⚠️ Instagram OAuth DISABLED (env vars missing)');
 }
+*/
 
 passport.serializeUser((user: any, done) => {
   done(null, user.id);

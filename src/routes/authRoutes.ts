@@ -63,8 +63,8 @@ router.post(
   authController.resendVerification
 );
 
-// Get OAuth providers status
-router.get('/oauth-status', authController.getOAuthStatus);
+// Get OAuth providers status - DISABLED
+// router.get('/oauth-status', authController.getOAuthStatus);
 
 // OAuth routes - TEMPORARILY DISABLED
 // Google OAuth routes
