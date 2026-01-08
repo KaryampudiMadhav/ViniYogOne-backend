@@ -2,6 +2,7 @@ import { Router } from 'express';
 import authRoutes from './authRoutes';
 import userRoutes from './userRoutes';
 import streakRoutes from './streakRoutes';
+import achievementRoutes from './achievementRoutes';
 
 const router = Router();
 
@@ -9,6 +10,7 @@ const router = Router();
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
 router.use('/streaks', streakRoutes);
+router.use('/achievements', achievementRoutes);
 
 // API documentation endpoint
 router.get('/', (_req, res) => {
@@ -18,7 +20,8 @@ router.get('/', (_req, res) => {
     endpoints: {
       auth: '/api/auth',
       users: '/api/users',
-      streaks: '/api/streaks'
+      streaks: '/api/streaks',
+      achievements: '/api/achievements'
     },
     documentation: '/api/docs'
   });

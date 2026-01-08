@@ -12,6 +12,8 @@ import { notFoundHandler } from './middleware/notFoundHandler';
 import session from 'express-session';
 import passport from './config/passport';
 import { startStreakResetCron } from './services/cronJobs';
+// Import models to establish associations
+import './models';
 
 // Load environment variables
 dotenv.config();
@@ -79,13 +81,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Health check endpoint
-app.get('/health', (_req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: process.env.NODE_ENV
-  });
+app.get('/health', async (_req, res) => {
+  try {
+    // Test database connection
+    await sequelize.authenticate();
+    
+    res.status(200).json({
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: process.env.NODE_ENV,
+      database: 'connected',
+      services: {
+        api: 'healthy',
+        database: 'healthy'
+      }
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: 'ERROR',
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV,
+      database: 'disconnected',
+      error: 'Database connection failed'
+    });
+  }
 });
 
 // API Routes
