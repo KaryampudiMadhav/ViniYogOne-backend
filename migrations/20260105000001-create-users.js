@@ -42,26 +42,27 @@ module.exports = {
         defaultValue: false,
         allowNull: false
       },
-      "googleId": {
-        type: Sequelize.STRING(255),
-        allowNull: true,
-        unique: true
-      },
-      "facebookId": {
-        type: Sequelize.STRING(255),
-        allowNull: true,
-        unique: true
-      },
-      "linkedinId": {
-        type: Sequelize.STRING(255),
-        allowNull: true,
-        unique: true
-      },
-      "twitterId": {
-        type: Sequelize.STRING(255),
-        allowNull: true,
-        unique: true
-      },
+      // OAuth fields - COMMENTED OUT FOR NOW
+      // "googleId": {
+      //   type: Sequelize.STRING(255),
+      //   allowNull: true,
+      //   unique: true
+      // },
+      // "facebookId": {
+      //   type: Sequelize.STRING(255),
+      //   allowNull: true,
+      //   unique: true
+      // },
+      // "linkedinId": {
+      //   type: Sequelize.STRING(255),
+      //   allowNull: true,
+      //   unique: true
+      // },
+      // "twitterId": {
+      //   type: Sequelize.STRING(255),
+      //   allowNull: true,
+      //   unique: true
+      // },
       "profilePicture": {
         type: Sequelize.TEXT,
         allowNull: true
@@ -130,21 +131,22 @@ module.exports = {
       name: 'users_email_index'
     });
     
-    await queryInterface.addIndex('users', ['googleId'], {
-      name: 'users_googleId_index'
-    });
-    
-    await queryInterface.addIndex('users', ['facebookId'], {
-      name: 'users_facebookId_index'
-    });
-    
-    await queryInterface.addIndex('users', ['linkedinId'], {
-      name: 'users_linkedinId_index'
-    });
-    
-    await queryInterface.addIndex('users', ['twitterId'], {
-      name: 'users_twitterId_index'
-    });
+    // OAuth indexes - COMMENTED OUT FOR NOW
+    // await queryInterface.addIndex('users', ['googleId'], {
+    //   name: 'users_googleId_index'
+    // });
+    // 
+    // await queryInterface.addIndex('users', ['facebookId'], {
+    //   name: 'users_facebookId_index'
+    // });
+    // 
+    // await queryInterface.addIndex('users', ['linkedinId'], {
+    //   name: 'users_linkedinId_index'
+    // });
+    // 
+    // await queryInterface.addIndex('users', ['twitterId'], {
+    //   name: 'users_twitterId_index'
+    // });
     
     await queryInterface.addIndex('users', ['phoneNumber'], {
       name: 'users_phoneNumber_index'

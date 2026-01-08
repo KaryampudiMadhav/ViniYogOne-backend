@@ -11,11 +11,12 @@ export interface UserAttributes {
   phoneNumber?: string;
   isEmailVerified?: boolean;
   isPhoneVerified?: boolean;
-  googleId?: string;
-  facebookId?: string;
-  linkedinId?: string;
-  twitterId?: string;
-  instagramId?: string;
+  // OAuth fields - COMMENTED OUT FOR NOW
+  // googleId?: string;
+  // facebookId?: string;
+  // linkedinId?: string;
+  // twitterId?: string;
+  // instagramId?: string;
   profilePicture?: string;
   dateOfBirth?: Date;
   kycStatus?: 'pending' | 'submitted' | 'verified' | 'rejected';
@@ -42,11 +43,12 @@ export class User extends Model<UserAttributes> implements UserAttributes {
   public phoneNumber?: string;
   public isEmailVerified!: boolean;
   public isPhoneVerified!: boolean;
-  public googleId?: string;
-  public facebookId?: string;
-  public linkedinId?: string;
-  public twitterId?: string;
-  public instagramId?: string;
+  // OAuth fields - COMMENTED OUT FOR NOW
+  // public googleId?: string;
+  // public facebookId?: string;
+  // public linkedinId?: string;
+  // public twitterId?: string;
+  // public instagramId?: string;
   public profilePicture?: string;
   public dateOfBirth?: Date;
   public kycStatus!: 'pending' | 'submitted' | 'verified' | 'rejected';
@@ -116,31 +118,32 @@ User.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    googleId: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      unique: true
-    },
-    facebookId: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      unique: true
-    },
-    linkedinId: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      unique: true
-    },
-    twitterId: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      unique: true
-    },
-    instagramId: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      unique: true
-    },
+    // OAuth fields - COMMENTED OUT FOR NOW
+    // googleId: {
+    //   type: DataTypes.STRING(255),
+    //   allowNull: true,
+    //   unique: true
+    // },
+    // facebookId: {
+    //   type: DataTypes.STRING(255),
+    //   allowNull: true,
+    //   unique: true
+    // },
+    // linkedinId: {
+    //   type: DataTypes.STRING(255),
+    //   allowNull: true,
+    //   unique: true
+    // },
+    // twitterId: {
+    //   type: DataTypes.STRING(255),
+    //   allowNull: true,
+    //   unique: true
+    // },
+    // instagramId: {
+    //   type: DataTypes.STRING(255),
+    //   allowNull: true,
+    //   unique: true
+    // },
     profilePicture: {
       type: DataTypes.TEXT,
       allowNull: true
@@ -210,11 +213,12 @@ User.init(
     timestamps: true,
     indexes: [
       { fields: ['email'] },
-      { fields: ['googleId'] },
-      { fields: ['facebookId'] },
-      { fields: ['linkedinId'] },
-      { fields: ['twitterId'] },
-      { fields: ['instagramId'] },
+      // OAuth indexes - COMMENTED OUT FOR NOW
+      // { fields: ['googleId'] },
+      // { fields: ['facebookId'] },
+      // { fields: ['linkedinId'] },
+      // { fields: ['twitterId'] },
+      // { fields: ['instagramId'] },
       { fields: ['phoneNumber'] }
     ],
     hooks: {
