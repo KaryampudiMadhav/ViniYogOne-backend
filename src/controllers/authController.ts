@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
 import OTP from '../models/OTP';
-// import passport from '../config/passport';
-// import { oauthStatus } from '../config/passport';
+import passport from 'passport';
+import { oauthStatus } from '../config/passport';
 import { generateToken, generateRefreshToken } from '../utils/jwt';
 import { sendOTPEmail, sendWelcomeEmail } from '../services/emailService';
 import { generateOTP } from '../utils/otp';
@@ -466,8 +466,7 @@ export class AuthController {
     }
   }
 
-  /*
-  // Google OAuth - DISABLED
+  // Google OAuth
   googleAuth(req: Request, res: Response, next: NextFunction) {
     if (!oauthStatus.google) {
       return res.status(503).json({
@@ -501,6 +500,7 @@ export class AuthController {
     })(req, res, next);
   }
 
+  /*
   // Facebook OAuth - DISABLED
   facebookAuth(req: Request, res: Response, next: NextFunction) {
     if (!oauthStatus.facebook) {
@@ -648,8 +648,7 @@ export class AuthController {
     }
   }
 
-  /*
-  // Get OAuth Providers Status - DISABLED
+  // Get OAuth Providers Status
   getOAuthStatus(_req: Request, res: Response): void {
     res.status(200).json({
       success: true,
@@ -662,7 +661,6 @@ export class AuthController {
       }
     });
   }
-  */
 
   // Resend Verification Email
   async resendVerification(req: Request, res: Response, next: NextFunction): Promise<any> {

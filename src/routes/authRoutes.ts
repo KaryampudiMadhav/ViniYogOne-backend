@@ -63,13 +63,13 @@ router.post(
   authController.resendVerification
 );
 
-// Get OAuth providers status - DISABLED
-// router.get('/oauth-status', authController.getOAuthStatus);
+// Get OAuth providers status
+router.get('/oauth-status', authController.getOAuthStatus.bind(authController));
 
-// OAuth routes - TEMPORARILY DISABLED
+// OAuth routes
 // Google OAuth routes
-// router.get('/google', authController.googleAuth);
-// router.get('/google/callback', authController.googleCallback);
+router.get('/google', authController.googleAuth.bind(authController));
+router.get('/google/callback', authController.googleCallback.bind(authController));
 
 // Facebook OAuth routes
 // router.get('/facebook', authController.facebookAuth);

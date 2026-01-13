@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { User } from '../models/User';
-// import { logger } from '../utils/logger'; // OAuth disabled
+import { logger } from '../utils/logger';
 
 // Track which OAuth providers are enabled
 export const oauthStatus = {
@@ -11,13 +11,6 @@ export const oauthStatus = {
   instagram: false
 };
 
-// ====================================
-// ALL OAUTH STRATEGIES DISABLED
-// Uncomment when ready to enable
-// ====================================
-
-/* 
-// Google OAuth Strategy
 const enableGoogleOAuth =
   !!process.env.GOOGLE_CLIENT_ID &&
   !!process.env.GOOGLE_CLIENT_SECRET;
@@ -79,6 +72,7 @@ if (enableGoogleOAuth) {
   logger.warn('⚠️ Google OAuth DISABLED (env vars missing)');
 }
 
+/* 
 // Facebook OAuth Strategy
 const enableFacebookOAuth =
   !!process.env.FACEBOOK_APP_ID &&
