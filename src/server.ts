@@ -10,7 +10,7 @@ import routes from './routes';
 import { errorHandler } from './middleware/errorHandler';
 import { notFoundHandler } from './middleware/notFoundHandler';
 import session from 'express-session';
-// import passport from './config/passport'; // OAuth disabled
+import passport from './config/passport';
 import { startStreakResetCron } from './services/cronJobs';
 // Import models to establish associations
 import './models';
@@ -76,9 +76,9 @@ app.use(session({
   }
 }));
 
-// Passport initialization - DISABLED (OAuth not in use)
-// app.use(passport.initialize());
-// app.use(passport.session());
+// Passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Health check endpoint
 app.get('/health', async (_req, res) => {
