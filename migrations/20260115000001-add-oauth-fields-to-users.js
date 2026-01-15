@@ -4,12 +4,12 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      // Get existing columns
-      const tableDescription = await queryInterface.describeTable('Users');
+      // Get existing columns (use lowercase table name for PostgreSQL)
+      const tableDescription = await queryInterface.describeTable('users');
       
       // Add OAuth provider ID columns only if they don't exist
       if (!tableDescription.googleId) {
-        await queryInterface.addColumn('Users', 'googleId', {
+        await queryInterface.addColumn('users', 'googleId', {
           type: Sequelize.STRING(255),
           allowNull: true,
           unique: true
@@ -17,7 +17,7 @@ module.exports = {
       }
 
       if (!tableDescription.facebookId) {
-        await queryInterface.addColumn('Users', 'facebookId', {
+        await queryInterface.addColumn('users', 'facebookId', {
           type: Sequelize.STRING(255),
           allowNull: true,
           unique: true
@@ -25,7 +25,7 @@ module.exports = {
       }
 
       if (!tableDescription.linkedinId) {
-        await queryInterface.addColumn('Users', 'linkedinId', {
+        await queryInterface.addColumn('users', 'linkedinId', {
           type: Sequelize.STRING(255),
           allowNull: true,
           unique: true
@@ -33,7 +33,7 @@ module.exports = {
       }
 
       if (!tableDescription.twitterId) {
-        await queryInterface.addColumn('Users', 'twitterId', {
+        await queryInterface.addColumn('users', 'twitterId', {
           type: Sequelize.STRING(255),
           allowNull: true,
           unique: true
@@ -41,7 +41,7 @@ module.exports = {
       }
 
       if (!tableDescription.instagramId) {
-        await queryInterface.addColumn('Users', 'instagramId', {
+        await queryInterface.addColumn('users', 'instagramId', {
           type: Sequelize.STRING(255),
           allowNull: true,
           unique: true
@@ -58,22 +58,22 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      const tableDescription = await queryInterface.describeTable('Users');
+      const tableDescription = await queryInterface.describeTable('users');
       
       if (tableDescription.googleId) {
-        await queryInterface.removeColumn('Users', 'googleId', { transaction });
+        await queryInterface.removeColumn('users', 'googleId', { transaction });
       }
       if (tableDescription.facebookId) {
-        await queryInterface.removeColumn('Users', 'facebookId', { transaction });
+        await queryInterface.removeColumn('users', 'facebookId', { transaction });
       }
       if (tableDescription.linkedinId) {
-        await queryInterface.removeColumn('Users', 'linkedinId', { transaction });
+        await queryInterface.removeColumn('users', 'linkedinId', { transaction });
       }
       if (tableDescription.twitterId) {
-        await queryInterface.removeColumn('Users', 'twitterId', { transaction });
+        await queryInterface.removeColumn('users', 'twitterId', { transaction });
       }
       if (tableDescription.instagramId) {
-        await queryInterface.removeColumn('Users', 'instagramId', { transaction });
+        await queryInterface.removeColumn('users', 'instagramId', { transaction });
       }
       
       await transaction.commit();
