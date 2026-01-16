@@ -49,8 +49,58 @@ if (enableGoogleOAuth) {
                   lastName: profile.name?.familyName || '',
                   profilePicture: profile.photos?.[0]?.value || '',
                   isEmailVerified: true,
+                  credits: 100, // Initial signup bonus
+                  totalXP: 0,
+                  level: 1,
+                  currentStreak: 1,
+                  longestStreak: 1,
+                  lastLoginDate: new Date()
                 });
+                logger.info(`New user registered via Google: ${user.email}`);
+                return done(null, user);
               }
+            }
+
+            // Update streak for existing user
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const lastLogin = user.lastLoginDate ? new Date(user.lastLoginDate) : null;
+            if (lastLogin) {
+              lastLogin.setHours(0, 0, 0, 0);
+            }
+
+            let streakUpdate: any = {};
+            if (!lastLogin || lastLogin.getTime() !== today.getTime()) {
+              const daysDiff = lastLogin
+                ? Math.floor((today.getTime() - lastLogin.getTime()) / (1000 * 60 * 60 * 24))
+                : 1;
+
+              if (daysDiff === 1) {
+                // Continue streak - consecutive login after 24 hours
+                const newStreak = user.currentStreak + 1;
+                streakUpdate = {
+                  currentStreak: newStreak,
+                  longestStreak: Math.max(user.longestStreak, newStreak),
+                  totalXP: user.totalXP + 10,
+                  credits: user.credits + 10, // Reward 10 credits for daily login
+                  lastLoginDate: new Date()
+                };
+                logger.info(`User ${user.email} maintained ${newStreak}-day streak, earned 10 credits`);
+              } else if (daysDiff > 1) {
+                // Missed days - reset streak
+                streakUpdate = {
+                  currentStreak: 1,
+                  totalXP: user.totalXP + 10,
+                  credits: user.credits + 10,
+                  lastLoginDate: new Date()
+                };
+                logger.info(`User ${user.email} streak reset, earned 10 credits`);
+              }
+
+              await user.update(streakUpdate);
+              // Reload to get updated values
+              await user.reload();
             }
 
             return done(null, user);

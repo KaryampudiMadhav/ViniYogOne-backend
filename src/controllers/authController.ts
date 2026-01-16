@@ -210,6 +210,15 @@ export class AuthController {
         });
       }
 
+      // Check if email is verified (only for non-OAuth users)
+      if (!user.isEmailVerified && !user.googleId && !user.facebookId && !user.linkedinId) {
+        return res.status(403).json({
+          success: false,
+          message: 'Please verify your email before logging in. Check your inbox for the verification code.',
+          emailNotVerified: true
+        });
+      }
+
       // If OTP is provided, verify OTP-based login
       if (otp) {
         const otpRecord = await OTP.findOne({
@@ -264,6 +273,7 @@ export class AuthController {
       }
 
       let streakUpdate = {};
+      let streakMessage = '';
       if (!lastLogin || lastLogin.getTime() !== today.getTime()) {
         // Calculate streak
         const daysDiff = lastLogin
@@ -271,7 +281,7 @@ export class AuthController {
           : 1;
 
         if (daysDiff === 1) {
-          // Continue streak
+          // Continue streak - consecutive login after 24 hours
           const newStreak = user.currentStreak + 1;
           streakUpdate = {
             currentStreak: newStreak,
@@ -279,13 +289,15 @@ export class AuthController {
             totalXP: user.totalXP + 10,
             credits: user.credits + 10 // 10 credits for daily login
           };
+          streakMessage = `🔥 ${newStreak}-day streak! You earned 10 credits!`;
         } else if (daysDiff > 1) {
-          // Reset streak
+          // Reset streak - missed days
           streakUpdate = {
             currentStreak: 1,
             totalXP: user.totalXP + 10,
             credits: user.credits + 10
           };
+          streakMessage = 'Streak reset. Keep logging in daily to earn more credits!';
         }
       }
 
@@ -293,6 +305,9 @@ export class AuthController {
         lastLoginDate: new Date(),
         ...streakUpdate
       });
+
+      // Reload to get updated values
+      await user.reload();
 
       // Generate tokens
       const token = generateToken(user.id);
@@ -303,6 +318,7 @@ export class AuthController {
       res.status(200).json({
         success: true,
         message: 'Login successful',
+        streakMessage,
         data: {
           user: user.toJSON(),
           token,
